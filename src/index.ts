@@ -1,3 +1,3 @@
-const nombre: string = 'walter';
+import Server from "./models/server";
 
-console.log(nombre);
+const server = new Server();
