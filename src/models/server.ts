@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import express, { Application, Request, Response } from 'express';
+import routesProduct from '../routes/product.routes'
 
 class Server {
     private app: Application;
@@ -8,6 +9,7 @@ class Server {
         this.app = express();
         this.port = process.env.PORT || '3001';
         this.listen();
+        this.middlewares();
         this.routes();
     }
 
@@ -22,6 +24,13 @@ class Server {
             res.json({ msg: 'API working' });
         })
 
+        this.app.use('/api/products', routesProduct)
+
+    }
+
+    middlewares() {
+        // body parser
+        this.app.use(express.json())
     }
 }
 
