@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import express, { Application, Request, Response } from 'express';
 import routesProduct from '../routes/product.routes'
+import db from '../db/connection'
 
 class Server {
     private app: Application;
@@ -11,6 +12,7 @@ class Server {
         this.listen();
         this.middlewares();
         this.routes();
+        this.dbConnect();
     }
 
     listen() {
@@ -31,6 +33,17 @@ class Server {
     middlewares() {
         // body parser
         this.app.use(express.json())
+    }
+
+    async dbConnect() {
+        try {
+            await db.authenticate()
+            console.log('Database connected');
+        } catch (error) {
+            console.log(error);
+            console.log("error connecting to the database");
+
+        }
     }
 }
 
